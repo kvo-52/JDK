@@ -8,8 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class ClientGUI extends JFrame {
-    public static final int WIDTH = 500;
-    public static final int HEIGHT = 500;
+    public static final int WIDTH = 300;
+    public static final int HEIGHT = 300;
 
     private ServerWindow server;
     private boolean connected;
@@ -27,7 +27,7 @@ public class ClientGUI extends JFrame {
         setSize(WIDTH, HEIGHT);
         setResizable(false);
         setTitle("Chat client");
-        setLocation(server.getX() - 500, server.getY());
+        setLocation(server.getX() - 300, server.getY());
 
         createPanel();
 
@@ -40,7 +40,7 @@ public class ClientGUI extends JFrame {
 
     private void connectToServer() {
         if (server.connectUser(this)){
-            appendLog("Вы успешно подключились!\n");
+            appendLog("Соединение установлено\n");
             headerPanel.setVisible(false);
             connected = true;
             name = tfLogin.getText();
@@ -49,7 +49,7 @@ public class ClientGUI extends JFrame {
                 appendLog(log);
             }
         } else {
-            appendLog("Подключение не удалось");
+            appendLog("Не удалось соединиться с сервером");
         }
     }
 
@@ -58,7 +58,7 @@ public class ClientGUI extends JFrame {
             headerPanel.setVisible(true);
             connected = false;
             server.disconnectUser(this);
-            appendLog("Вы были отключены от сервера!");
+            appendLog("Соединение разорвано");
         }
     }
 
