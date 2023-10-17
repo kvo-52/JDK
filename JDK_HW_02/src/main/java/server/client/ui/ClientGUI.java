@@ -1,12 +1,15 @@
-package client;
+package server.client.ui;
+
+import server.client.domain.Client;
+import server.server.ui.ServerWindow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ClientGUI extends JFrame implements ClientView{
+public class ClientGUI extends JFrame implements ClientView {
     public static final int WIDTH = 400;
-    public static final int HEIGHT = 300;
+    public static final int HEIGHT = 400;
 
     JTextArea log;
     JTextField tfIPAddress, tfPort, tfLogin, tfMessage;
@@ -16,46 +19,44 @@ public class ClientGUI extends JFrame implements ClientView{
 
     private Client client;
 
-    public ClientGUI(ServerWindow server){
-        this.client = new Client(this, server);
-
-        setSize(WIDTH, HEIGHT);
-        setResizable(false);
-        setTitle("Chat client");
-        setLocation(server.getX() - 500, server.getY());
-
+    public ClientGUI(ServerWindow server) {
+        setting(server);
         createPanel();
 
         setVisible(true);
     }
 
-    private void connectToServer() {
-        if (client.connectToServer(tfLogin.getText())){
-            hideHeaderPanel(false);
-        }
+    private void setting(ServerWindow server) {
+        setSize(WIDTH, HEIGHT);
+        setResizable(false);
+        setTitle("Chat client");
+        setLocation(server.getX() - 500, server.getY());
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        client = new Client(this, server.getConnection());
     }
 
-    @Override
-    public void showMessage(String text) {
-        appendLog(text);
+    public void showMessage(String msg) {
+        log.append(msg);
     }
 
-    public void disconnectFromServer() {
+    public void disconnectFromServer(){
         hideHeaderPanel(true);
-        client.disconnect();
+        client.disconnectFromServer();
     }
 
-    private void hideHeaderPanel(boolean visible){
+    public void hideHeaderPanel(boolean visible){
         headerPanel.setVisible(visible);
     }
 
-    public void sendMessage(){
-        client.sendMessage(tfMessage.getText());
-        tfMessage.setText("");
+    public void login(){
+        if (client.connectToServer(tfLogin.getText())){
+            headerPanel.setVisible(false);
+        }
     }
 
-    private void appendLog(String text){
-        log.append(text + "\n");
+    private void message(){
+        client.message(tfMessage.getText());
+        tfMessage.setText("");
     }
 
     private void createPanel() {
@@ -64,17 +65,17 @@ public class ClientGUI extends JFrame implements ClientView{
         add(createFooter(), BorderLayout.SOUTH);
     }
 
-    private Component createHeaderPanel(){
+    private Component createHeaderPanel() {
         headerPanel = new JPanel(new GridLayout(2, 3));
-        tfIPAddress = new JTextField("127.0.0.1");
-        tfPort = new JTextField("8189");
-        tfLogin = new JTextField("Ivan Ivanovich");
+        tfIPAddress = new JTextField("198.10.09.11");
+        tfPort = new JTextField("9344");
+        tfLogin = new JTextField("Kate Winslat");
         password = new JPasswordField("123456");
         btnLogin = new JButton("login");
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                connectToServer();
+                login();
             }
         });
 
@@ -88,7 +89,7 @@ public class ClientGUI extends JFrame implements ClientView{
         return headerPanel;
     }
 
-    private Component createLog(){
+    private Component createLog() {
         log = new JTextArea();
         log.setEditable(false);
         return new JScrollPane(log);
@@ -100,8 +101,8 @@ public class ClientGUI extends JFrame implements ClientView{
         tfMessage.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == '\n'){
-                    sendMessage();
+                if (e.getKeyChar() == '\n') {
+                    message();
                 }
             }
         });
@@ -109,7 +110,7 @@ public class ClientGUI extends JFrame implements ClientView{
         btnSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendMessage();
+                message();
             }
         });
         panel.add(tfMessage);
