@@ -1,12 +1,10 @@
 package gb.calculater;
 
 import java.util.Scanner;
-public class CalcVeiw{
-
-
+public class CalcView {
     public void calculateView(){
         Scanner scanner = new Scanner(System.in);
-        CalcVeiw calculator = new CalcVeiw();
+        CalcView calculator = new CalcView();
         System.out.println("Enter the first number: ");
         double inputFirstNumber = scanner.nextDouble();
         System.out.println("Enter the second number: ");
