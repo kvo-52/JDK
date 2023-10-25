@@ -9,7 +9,7 @@ class ArrayAlg {
      * @param a Массив строк.
      * @return Минимальное и максимальное значение, упакованные в пару
      * */
-    public static Pair<String> minmax(String[] a) {
+    public static Pair<String, String> minmax(String[] a) {
         if (a == null || a.length == 0) {
             return null;
         }

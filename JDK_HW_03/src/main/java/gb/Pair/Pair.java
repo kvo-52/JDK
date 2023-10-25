@@ -4,9 +4,9 @@ package gb.Pair;
 /**
  * <p>Класс, который представляет из себя пару обобщенных значений</p>
  * */
-class Pair<T> {
-    private T first;
-    private T second;
+class Pair<T1, T2> {
+    private T1 first;
+    private T2 second;
 
     /**
      * <p>Конструктор по умолчанию</p>
@@ -21,7 +21,7 @@ class Pair<T> {
      * @param first Первое значение
      * @param second Второе значение
      * */
-    public Pair(T first, T second) {
+    public Pair(T1 first, T2 second) {
         this.first = first;
         this.second = second;
     }
@@ -30,7 +30,7 @@ class Pair<T> {
      * <p>Функция для получения первого значения</p>
      * @return Первое значение
      * */
-    public T getFirst() {
+    public T1 getFirst() {
         return first;
     }
 
@@ -38,7 +38,7 @@ class Pair<T> {
      * <p>Функция для изменения первого значения</p>
      * @param first Первое значение
      * */
-    public void setFirst(T first) {
+    public void setFirst(T1 first) {
         this.first = first;
     }
 
@@ -46,7 +46,7 @@ class Pair<T> {
      * <p>Функция для получения второго значения</p>
      * @return Второе значение
      * */
-    public T getSecond() {
+    public T2 getSecond() {
         return second;
     }
 
@@ -54,7 +54,7 @@ class Pair<T> {
      * <p>Функция для изменения второго значения</p>
      * @param second Второе значение
      * */
-    public void setSecond(T second) {
+    public void setSecond(T2 second) {
         this.second = second;
     }
 }
