@@ -1,7 +1,7 @@
 package gb.calculater;
 
 import java.util.Scanner;
-import gb.calculater.Calculator;
+//import gb.calculater.Calculator;
 public class CalcView {
     public void calculateView(){
         Scanner scanner = new Scanner(System.in);
