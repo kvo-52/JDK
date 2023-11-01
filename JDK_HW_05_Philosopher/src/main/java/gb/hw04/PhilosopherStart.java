@@ -1,7 +1,5 @@
 package gb.hw04;
 
-import gb.hw04.Round;
-import gb.hw04.Philosopher;
 public class PhilosopherStart {
     public static void main(String[] args) {
         final int nCounter = 3;
