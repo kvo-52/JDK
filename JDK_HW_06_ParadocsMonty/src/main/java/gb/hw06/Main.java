@@ -9,8 +9,23 @@ public class Main {
     static int numberDoor=3;
     static int numberIteration=1000;
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        int countWinner = 0;
+        int countLoser = 0;
+
+        for (int i = 0; i < processingGame().size(); i++) {
+            if (processingGame().get(i + 1)) {
+                countWinner++;
+            } else {
+                countLoser++;
+            }
+        }
+        System.out.println("Выигрышных комбинаций: " + countWinner + "\nПроигрышных комбинаций: " + countLoser);
+
+        double percentWinner = (double) (countWinner * 100) / numberIteration;
+        double percentLoser = (double) (countLoser * 100) / numberIteration;
+        System.out.println("% выигрышных комбинаций: " + percentWinner + "\n% проигрышных комбинаций: " + percentLoser);
 
 
         }
@@ -45,6 +60,4 @@ public class Main {
         }
         return setNewDoor == 1;
     }
-
-
-    }
+}
